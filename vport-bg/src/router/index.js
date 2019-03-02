@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Homepage from '@/components/Homepage'
 import CourseForm from '@/components/CourseForm'
 import ClassForm from '@/components/ClassForm'
+import CourseList from '@/components/CourseList'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
           path: 'clsform',
           name: 'ClassForm',
           component: ClassForm
+        },
+        {
+          path: 'crsList',
+          name: 'CourseList',
+          component: CourseList
         },
       ]
     }
