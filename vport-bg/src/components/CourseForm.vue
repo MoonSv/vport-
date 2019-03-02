@@ -1,0 +1,96 @@
+<template>
+  <div>
+    <el-form ref="form" :model="form" label-width="80px">
+      <el-form-item label="课程名称">
+        <el-input v-model="form.name"></el-input>
+      </el-form-item>
+      <el-form-item label="课程级别">
+        <el-select v-model="form.region" placeholder="请选择课程级别">
+          <el-option label="S" value="S"></el-option>
+          <el-option label="A" value="A"></el-option>
+          <el-option label="B" value="B"></el-option>
+          <el-option label="C" value="C"></el-option>
+          <el-option label="D" value="D"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="年龄要求">
+        <el-input v-model="form.name"></el-input>
+      </el-form-item>
+      <el-form-item label="收费标准">
+        <el-input v-model="form.name"></el-input>
+      </el-form-item>
+      <el-form-item label="课程周期">
+        <el-input v-model="form.name"></el-input>
+      </el-form-item>
+      <el-form-item label="图片">
+        <el-upload
+          class="upload-demo"
+          action="https://jsonplaceholder.typicode.com/posts/"
+          :on-preview="handlePreview"
+          :on-remove="handleRemove"
+          :file-list="fileList2"
+          list-type="picture"
+        >
+          <el-button size="small" type="primary">点击上传</el-button>
+          <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+        </el-upload>
+      </el-form-item>
+    </el-form>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "CourseForm",
+  props: [""],
+  data() {
+    return {
+      form: {
+        name: "",
+        region: "",
+        date1: "",
+        date2: "",
+        delivery: false,
+        type: [],
+        resource: "",
+        desc: "",
+        fileList2: [
+          {
+            name: "food.jpeg",
+            url:
+              "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
+          },
+          {
+            name: "food2.jpeg",
+            url:
+              "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
+          }
+        ]
+      }
+    };
+  },
+  methods: {
+    onSubmit() {
+      console.log("submit!");
+    },
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePreview(file) {
+      console.log(file);
+    }
+  },
+
+  components: {},
+
+  computed: {},
+
+  beforeMount() {},
+
+  mounted() {},
+
+  watch: {}
+};
+</script>
+<style lang='' scoped>
+</style>

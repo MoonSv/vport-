@@ -1,45 +1,45 @@
 <template>
   <div>
     <el-container style="height: 100vh; border: 1px solid #eee">
-      <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-        <el-menu :default-openeds="['1', '3']">
+      <el-aside width="180px" style="background-color: rgb(238, 241, 246)">
+        <el-menu :default-openeds="['1', '2', '3']">
           <el-submenu index="1">
             <template slot="title">
-              <i class="el-icon-message"></i>导航一
+              <i class="el-icon-goods"></i>课程
             </template>
             <el-menu-item-group>
-              <template slot="title">分组一</template>
-              <el-menu-item index="1-1">选项1</el-menu-item>
-              <el-menu-item index="1-2">选项2</el-menu-item>
+              <!-- <template slot="title">分组一</template> -->
+              <el-menu-item index="1-1" @click="clickNewCrs">
+                <i class="el-icon-circle-plus-outline"></i>新增课程
+              </el-menu-item>
+              <el-menu-item index="1-2" @click="clickNewCls">
+                <i class="el-icon-circle-plus-outline"></i>新增班级
+              </el-menu-item>
+              <el-menu-item index="1-3">
+                <i class="el-icon-search"></i>浏览课程
+              </el-menu-item>
+              <el-menu-item index="1-4">
+                <i class="el-icon-tickets"></i>制定计划
+              </el-menu-item>
             </el-menu-item-group>
-            <el-menu-item-group title="分组2">
-              <el-menu-item index="1-3">选项3</el-menu-item>
-            </el-menu-item-group>
-            <el-submenu index="1-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="1-4-1">选项4-1</el-menu-item>
-            </el-submenu>
           </el-submenu>
           <el-submenu index="2">
             <template slot="title">
-              <i class="el-icon-menu"></i>导航二
+              <i class="el-icon-goods"></i>商城
             </template>
             <el-menu-item-group>
-              <template slot="title">分组一</template>
-              <el-menu-item index="2-1">选项1</el-menu-item>
-              <el-menu-item index="2-2">选项2</el-menu-item>
+              <!-- <template slot="title">分组一</template> -->
+              <el-menu-item index="2-1" @click="clickNewGood">
+                <i class="el-icon-circle-plus-outline"></i>新增商品
+              </el-menu-item>
+              <el-menu-item index="2-2">
+                <i class="el-icon-search"></i>浏览商品
+              </el-menu-item>
             </el-menu-item-group>
-            <el-menu-item-group title="分组2">
-              <el-menu-item index="2-3">选项3</el-menu-item>
-            </el-menu-item-group>
-            <el-submenu index="2-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="2-4-1">选项4-1</el-menu-item>
-            </el-submenu>
           </el-submenu>
           <el-submenu index="3">
             <template slot="title">
-              <i class="el-icon-setting"></i>导航三
+              <i class="el-icon-bell"></i>社区
             </template>
             <el-menu-item-group>
               <template slot="title">分组一</template>
@@ -72,11 +72,7 @@
         </el-header>
 
         <el-main>
-          <el-table :data="tableData">
-            <el-table-column prop="date" label="日期" width="140"></el-table-column>
-            <el-table-column prop="name" label="姓名" width="120"></el-table-column>
-            <el-table-column prop="address" label="地址"></el-table-column>
-          </el-table>
+          <router-view></router-view>
         </el-main>
       </el-container>
     </el-container>
@@ -105,6 +101,15 @@ export default {
     },
     handleClose(key, keyPath) {
       console.log(key, keyPath);
+    },
+    clickNewCrs() {
+      this.$router.push({ name: "CourseForm" });
+    },
+    clickNewCls() {
+      this.$router.push({ name: "ClassForm" });
+    },
+    clickNewGood() {
+      this.$router.push({ name: "CourseForm" });
     }
   },
 

@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import Homepage from '@/components/Homepage'
+import CourseForm from '@/components/CourseForm'
+import ClassForm from '@/components/ClassForm'
 
 Vue.use(Router)
 
@@ -10,7 +11,19 @@ export default new Router({
     {
       path: '/',
       name: 'Homepage',
-      component: Homepage
+      component: Homepage,
+      children: [
+        {
+          path: 'crsform',
+          name: 'CourseForm',
+          component: CourseForm
+        },
+        {
+          path: 'clsform',
+          name: 'ClassForm',
+          component: ClassForm
+        },
+      ]
     }
   ]
 })
