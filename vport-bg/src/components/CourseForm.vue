@@ -2,10 +2,10 @@
   <div>
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="课程名称">
-        <el-input v-model="form.name"></el-input>
+        <el-input v-model="form.C_COURSE_NAME"></el-input>
       </el-form-item>
       <el-form-item label="课程级别">
-        <el-select v-model="form.region" placeholder="请选择课程级别">
+        <el-select v-model="form.C_LEVEL" placeholder="请选择课程级别">
           <el-option label="S" value="S"></el-option>
           <el-option label="A" value="A"></el-option>
           <el-option label="B" value="B"></el-option>
@@ -13,19 +13,29 @@
           <el-option label="D" value="D"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="年龄要求">
-        <el-input v-model="form.name"></el-input>
+      <el-form-item label="最低年龄">
+        <el-input-number
+          v-model="form.C_BEGIN_AGE"
+          @change="handleChange"
+          :min="3"
+          :max="30"
+          label="描述文字"
+        ></el-input-number>
+      </el-form-item>
+      <el-form-item label="最高年龄">
+        <el-input-number v-model="form.C_END_AGE" @change="handleChange" :min="50" :max="80" label="描述文字"></el-input-number>
       </el-form-item>
       <el-form-item label="收费标准">
-        <el-input v-model="form.name"></el-input>
+        <el-input v-model="form.C_FEE"></el-input>
       </el-form-item>
       <el-form-item label="课程周期">
-        <el-input v-model="form.name"></el-input>
+        <el-input v-model="form.C_TRAINING_PERIOD"></el-input>
       </el-form-item>
       <el-form-item label="图片">
         <el-upload
           class="upload-demo"
-          action="https://jsonplaceholder.typicode.com/posts/"
+          action="http://www.vport.com/rest/course_save.action"
+          name="C_PIC_URL"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
           list-type="picture"
@@ -48,38 +58,48 @@ export default {
   data() {
     return {
       form: {
-        name: "",
-        region: "",
-        date1: "",
-        date2: "",
-        delivery: false,
-        type: [],
-        resource: "",
-        desc: "",
-        fileList2: [
-          {
-            name: "food.jpeg",
-            url:
-              "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
-          },
-          {
-            name: "food2.jpeg",
-            url:
-              "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
-          }
-        ]
+        C_COURSE_NAME: "",
+        C_LEVEL: "",
+        C_BEGIN_AGE: 0,
+        C_END_AGE: 0,
+        C_FEE: "",
+        C_TRAINING_PERIOD: "",
+        // fileList2: [
+        //   {
+        //     name: "food.jpeg",
+        //     url:
+        //       "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
+        //   },
+        //   {
+        //     name: "food2.jpeg",
+        //     url:
+        //       "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
+        //   }
+        // ]
       }
     };
   },
   methods: {
     onSubmit() {
       console.log("submit!");
+      console.log(this.form);
+      this.$http
+        .post("http://www.vport.com/rest/course_save.action", this.form)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     handleRemove(file, fileList) {
       console.log(file, fileList);
     },
     handlePreview(file) {
       console.log(file);
+    },
+    handleChange(value) {
+      console.log(value);
     }
   },
 

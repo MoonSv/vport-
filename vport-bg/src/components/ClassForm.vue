@@ -70,7 +70,7 @@ export default {
   methods: {
     onSubmit() {
       console.log("submit!");
-      console.log(this.form)
+      console.log(this.form);
     },
     handleRemove(file, fileList) {
       console.log(file, fileList);
@@ -78,8 +78,13 @@ export default {
     handlePreview(file) {
       console.log(file);
     },
-    submitClassForm(){
-      this.$http.post()
+    submitClassForm() {
+      this.$http
+        .post('http://www.vport.com/rest/course_save.action', this.form)
+        .then(res => {})
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
 
