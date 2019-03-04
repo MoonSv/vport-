@@ -2,10 +2,10 @@
   <div>
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="课程名称">
-        <el-input v-model="form.C_COURSE_NAME"></el-input>
+        <el-input v-model="form.courseName"></el-input>
       </el-form-item>
       <el-form-item label="课程级别">
-        <el-select v-model="form.C_LEVEL" placeholder="请选择课程级别">
+        <el-select v-model="form.level" placeholder="请选择课程级别">
           <el-option label="S" value="S"></el-option>
           <el-option label="A" value="A"></el-option>
           <el-option label="B" value="B"></el-option>
@@ -15,7 +15,7 @@
       </el-form-item>
       <el-form-item label="最低年龄">
         <el-input-number
-          v-model="form.C_BEGIN_AGE"
+          v-model="form.beginAge"
           @change="handleChange"
           :min="3"
           :max="30"
@@ -23,19 +23,19 @@
         ></el-input-number>
       </el-form-item>
       <el-form-item label="最高年龄">
-        <el-input-number v-model="form.C_END_AGE" @change="handleChange" :min="50" :max="80" label="描述文字"></el-input-number>
+        <el-input-number v-model="form.endAge" @change="handleChange" :min="50" :max="80" label="描述文字"></el-input-number>
       </el-form-item>
       <el-form-item label="收费标准">
-        <el-input v-model="form.C_FEE"></el-input>
+        <el-input v-model="form.fee"></el-input>
       </el-form-item>
       <el-form-item label="课程周期">
-        <el-input v-model="form.C_TRAINING_PERIOD"></el-input>
+        <el-input v-model="form.trainingPeriod"></el-input>
       </el-form-item>
       <el-form-item label="图片">
         <el-upload
           class="upload-demo"
           action="http://www.vport.com/rest/course_save.action"
-          name="C_PIC_URL"
+          name="picUrl"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
           list-type="picture"
@@ -58,12 +58,12 @@ export default {
   data() {
     return {
       form: {
-        C_COURSE_NAME: "",
-        C_LEVEL: "",
-        C_BEGIN_AGE: 0,
-        C_END_AGE: 0,
-        C_FEE: "",
-        C_TRAINING_PERIOD: "",
+        courseName: "",
+        level: "",
+        beginAge: 0,
+        endAge: 0,
+        fee: "",
+        trainingPeriod: "",
         // fileList2: [
         //   {
         //     name: "food.jpeg",
