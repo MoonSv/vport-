@@ -70,12 +70,16 @@ export default {
   methods: {
     onSubmit() {
       console.log("submit!");
+      console.log(this.form)
     },
     handleRemove(file, fileList) {
       console.log(file, fileList);
     },
     handlePreview(file) {
       console.log(file);
+    },
+    submitClassForm(){
+      this.$http.post()
     }
   },
 

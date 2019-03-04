@@ -15,11 +15,11 @@
               <el-menu-item index="1-2" @click="clickNewCls">
                 <i class="el-icon-circle-plus-outline"></i>新增班级
               </el-menu-item>
-              <el-menu-item index="1-3" @click="clickCrsList">
+              <el-menu-item index="1-3" >
                 <i class="el-icon-search"></i>浏览课程
               </el-menu-item>
-              <el-menu-item index="1-4">
-                <i class="el-icon-tickets"></i>制定计划
+              <el-menu-item index="1-4" @click="clickClsList">
+                <i class="el-icon-tickets"></i>浏览班级
               </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
@@ -111,7 +111,7 @@ export default {
     clickNewGood() {
       this.$router.push({ name: "CourseForm" });
     },
-    clickCrsList() {
+    clickClsList() {
         console.log(11)
       this.$router.push({ name: "CourseList" });
     }

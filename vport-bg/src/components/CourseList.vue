@@ -57,7 +57,14 @@
             </ul>
           </div>
           <span class="view-dtl">
-            <i class="el-icon-more-outline"></i>
+            <el-dropdown trigger="click">
+              <i class="el-icon-more-outline"></i>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>查看</el-dropdown-item>
+                <el-dropdown-item>编辑</el-dropdown-item>
+                <el-dropdown-item>删除</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </span>
         </li>
         <li class="course-card">
@@ -94,7 +101,14 @@
             </ul>
           </div>
           <span class="view-dtl">
-            <i class="el-icon-more-outline"></i>
+            <el-dropdown trigger="click">
+              <i class="el-icon-more-outline"></i>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>查看</el-dropdown-item>
+                <el-dropdown-item>编辑</el-dropdown-item>
+                <el-dropdown-item>删除</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </span>
         </li>
         <li class="course-card">
@@ -128,7 +142,14 @@
             </ul>
           </div>
           <span class="view-dtl">
-            <i class="el-icon-more-outline"></i>
+            <el-dropdown trigger="click">
+              <i class="el-icon-more-outline"></i>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>查看</el-dropdown-item>
+                <el-dropdown-item>编辑</el-dropdown-item>
+                <el-dropdown-item>删除</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </span>
         </li>
         <li class="course-card">
@@ -177,11 +198,17 @@
               <li>
                 <img src="@/assets/user.png" alt>
               </li>
-
             </ul>
           </div>
           <span class="view-dtl">
-            <i class="el-icon-more-outline"></i>
+            <el-dropdown trigger="click">
+              <i class="el-icon-more-outline"></i>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>查看</el-dropdown-item>
+                <el-dropdown-item>编辑</el-dropdown-item>
+                <el-dropdown-item>删除</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </span>
         </li>
         <li class="course-card">
@@ -200,7 +227,14 @@
             </ul>
           </div>
           <span class="view-dtl">
-            <i class="el-icon-more-outline"></i>
+            <el-dropdown trigger="click">
+              <i class="el-icon-more-outline"></i>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>查看</el-dropdown-item>
+                <el-dropdown-item>编辑</el-dropdown-item>
+                <el-dropdown-item>删除</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </span>
         </li>
       </ul>
@@ -254,6 +288,9 @@ p {
   right: 10px;
   top: 10px;
   cursor: pointer;
+}
+.el-dropdown {
+  color: #fff;
 }
 .erl-st > ul {
   margin-top: 10px;
