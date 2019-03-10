@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Homepage from '@/components/Homepage'
-import CourseForm from '@/components/CourseForm'
-import ClassForm from '@/components/ClassForm'
-import CourseList from '@/components/CourseList'
+import CourseForm from '@/components/Course/CourseForm'
+import ClassForm from '@/components/Class/ClassForm'
+import CourseList from '@/components/Course/CourseList'
+import ClassList from '@/components/Class/ClassList'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
           path: 'crsList',
           name: 'CourseList',
           component: CourseList
+        },
+        {
+          path: 'clsList',
+          name: 'ClassList',
+          component: ClassList
         },
       ]
     }

@@ -58,7 +58,7 @@
           </div>
           <span class="view-dtl">
             <el-dropdown trigger="click">
-              <i class="el-icon-more-outline"></i>
+              <i class="el-icon-more-outline" style="font-size: 24px"></i>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>查看</el-dropdown-item>
                 <el-dropdown-item>编辑</el-dropdown-item>
@@ -102,7 +102,7 @@
           </div>
           <span class="view-dtl">
             <el-dropdown trigger="click">
-              <i class="el-icon-more-outline"></i>
+              <i class="el-icon-more-outline" style="font-size: 24px"></i>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>查看</el-dropdown-item>
                 <el-dropdown-item>编辑</el-dropdown-item>
@@ -143,7 +143,7 @@
           </div>
           <span class="view-dtl">
             <el-dropdown trigger="click">
-              <i class="el-icon-more-outline"></i>
+              <i class="el-icon-more-outline" style="font-size: 24px"></i>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>查看</el-dropdown-item>
                 <el-dropdown-item>编辑</el-dropdown-item>
@@ -202,7 +202,7 @@
           </div>
           <span class="view-dtl">
             <el-dropdown trigger="click">
-              <i class="el-icon-more-outline"></i>
+              <i class="el-icon-more-outline" style="font-size: 24px"></i>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>查看</el-dropdown-item>
                 <el-dropdown-item>编辑</el-dropdown-item>
@@ -228,7 +228,7 @@
           </div>
           <span class="view-dtl">
             <el-dropdown trigger="click">
-              <i class="el-icon-more-outline"></i>
+              <i class="el-icon-more-outline" style="font-size: 24px"></i>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>查看</el-dropdown-item>
                 <el-dropdown-item>编辑</el-dropdown-item>
@@ -236,6 +236,9 @@
               </el-dropdown-menu>
             </el-dropdown>
           </span>
+        </li>
+        <li class="plus-card">
+          <i class="el-icon-circle-plus-outline plus-button" @click="clickNewCls"></i>
         </li>
       </ul>
     </div>
@@ -258,7 +261,11 @@ export default {
 
   mounted() {},
 
-  methods: {},
+  methods: {
+    clickNewCls() {
+      this.$router.push({ name: "ClassForm" });
+    },
+  },
 
   watch: {}
 };
@@ -279,6 +286,26 @@ export default {
   padding: 10px;
   border-radius: 10px;
   position: relative;
+}
+.plus-card {
+  width: 300px;
+  height: 190px;
+  background-color: rgba(177, 177, 177, 0.404);
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.plus-button {
+  font-size: 100px;
+  color: #b7b7b7bd;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.plus-button:hover {
+  color: #8a8a8abd;
 }
 p {
   margin-bottom: 5px;
