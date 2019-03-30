@@ -301,7 +301,7 @@
 </template>
 
 <script>
-import qs from 'qs'
+import qs from "qs";
 export default {
   name: "",
   props: [""],
@@ -323,13 +323,27 @@ export default {
 
   computed: {},
 
-  beforeMount() {},
+  beforeMount() {
+    this.getClsList()
+  },
 
   mounted() {},
 
   methods: {
     clickNewCls() {
       this.$router.push({ name: "ClassForm" });
+    },
+    getClsList() {
+      this.$http
+        .get("http://127.0.0.1:8080/xxx")
+        .then(res => {
+          if (res.data) {
+            console.log(res);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     onSubmit() {
       console.log("submit!");

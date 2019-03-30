@@ -91,7 +91,9 @@ export default {
 
   computed: {},
 
-  beforeMount() {},
+  beforeMount() {
+    this.getCrsList()
+  },
 
   mounted() {},
 
