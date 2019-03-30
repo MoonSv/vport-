@@ -1,11 +1,52 @@
 <template>
   <div>
     <div class="wrap">
+      <div class="search-bar">
+        <el-form :inline="true" :model="formInline" class="demo-form-inline">
+          <el-form-item label="课程名称">
+            <el-input v-model="formInline.courseName" placeholder="课程名称"></el-input>
+          </el-form-item>
+          <el-form-item label="课程级别">
+            <el-select v-model="formInline.level" placeholder="课程级别">
+              <el-option label="S" value="S"></el-option>
+              <el-option label="A" value="A"></el-option>
+              <el-option label="B" value="B"></el-option>
+              <el-option label="C" value="C"></el-option>
+              <el-option label="D" value="D"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="最低年龄">
+            <el-input-number
+              v-model="formInline.beginAge"
+              :min="3"
+              :max="30"
+              label="描述文字"
+            ></el-input-number>
+          </el-form-item>
+          <el-form-item label="最高年龄">
+            <el-input-number
+              v-model="formInline.endAge"
+              :min="50"
+              :max="80"
+              label="描述文字"
+            ></el-input-number>
+          </el-form-item>
+          <el-form-item label="收费标准">
+            <el-input v-model="formInline.fee"></el-input>
+          </el-form-item>
+          <el-form-item label="课程周期">
+            <el-input v-model="formInline.trainingPeriod"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="onSubmit">搜索</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
       <ul class="course-group">
         <li class="course-card">
           <p class="class-name">Course name</p>
           <p class="trainer-name">课程级别：S</p>
-          <p class="class-date">年龄：3 - 50</p>
+          <p class="class-date">年龄：3 - 50岁</p>
           <p class="class-time">收费标准：</p>
           <p class="class-time">课程周期：50</p>
           <p class="class-time">最高年龄：50</p>
@@ -29,11 +70,21 @@
 </template>
 
 <script>
+import qs from 'qs'
 export default {
   name: "",
   props: [""],
   data() {
-    return {};
+    return {
+      formInline: {
+        courseName: "",
+        level: "",
+        beginAge: 0,
+        endAge: 0,
+        fee: "",
+        trainingPeriod: ""
+      }
+    };
   },
 
   components: {},
@@ -47,6 +98,31 @@ export default {
   methods: {
     clickNewCrs() {
       this.$router.push({ name: "CourseForm" });
+    },
+    getCrsList() {
+      this.$http
+        .get("http://127.0.0.1:8080/xxx")
+        .then(res => {
+          if (res.data) {
+            console.log(res);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    onSubmit() {
+      console.log("submit!");
+      this.$http
+      .post("http://127.0.0.1:8080/xxx", qs.stringify(this.formInline))
+      .then(res=>{
+        if (res) {
+          console.log(res)
+        }
+      })
+      .catch(err=>{
+        console.log(err)
+      })
     }
   },
 

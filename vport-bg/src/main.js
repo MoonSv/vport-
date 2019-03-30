@@ -11,6 +11,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 Vue.prototype.$http = Axios
+Vue.use(qs)
 
 /* eslint-disable no-new */
 new Vue({

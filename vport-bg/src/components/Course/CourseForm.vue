@@ -1,5 +1,7 @@
 <template>
   <div>
+    <h2 style="color: rgb(46, 120, 125);">新的课程</h2>
+    <br>
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="课程名称">
         <el-input v-model="form.courseName"></el-input>
@@ -52,6 +54,7 @@
 </template>
 
 <script>
+import qs from 'qs'
 export default {
   name: "CourseForm",
   props: [""],
@@ -84,7 +87,7 @@ export default {
       console.log("submit!");
       console.log(this.form);
       this.$http
-        .post("http://www.vport.com/rest/course_save.action", this.form)
+        .post("http://www.vport.com/rest/course_save.action", qs.stringify(this.form))
         .then(res => {
           console.log(res)
         })
