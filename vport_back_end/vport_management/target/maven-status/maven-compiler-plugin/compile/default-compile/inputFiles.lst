@@ -1,8 +1,5 @@
-E:\BOS_project\vport-BG\vport_back_end\vport_management\src\main\java\cn\vport\dao\training\TrainingContentRepository.java
-E:\BOS_project\vport-BG\vport_back_end\vport_management\src\main\java\cn\vport\service\training\TrainingPlanService.java
-E:\BOS_project\vport-BG\vport_back_end\vport_management\src\main\java\cn\vport\dao\training\CourseRepository.java
-E:\BOS_project\vport-BG\vport_back_end\vport_management\src\main\java\cn\vport\dao\training\TrainingClassRepository.java
-E:\BOS_project\vport-BG\vport_back_end\vport_management\src\main\java\cn\vport\dao\training\SkillPlanRepository.java
-E:\BOS_project\vport-BG\vport_back_end\vport_management\src\main\java\cn\vport\service\training\impl\TrainingPlanServiceImpl.java
-E:\BOS_project\vport-BG\vport_back_end\vport_management\src\main\java\cn\vport\dao\training\PhysicalPlanRepository.java
-E:\BOS_project\vport-BG\vport_back_end\vport_management\src\main\java\cn\vport\dao\training\TrainingPlanRepository.java
+E:\BOS_project\vport_management\src\main\java\cn\vport\service\courseAndTraining\impl\CourseServiceImpl.java
+E:\BOS_project\vport_management\src\main\java\cn\vport\mapper\courseAndTraining\base\CourseMapper.java
+E:\BOS_project\vport_management\src\main\java\cn\vport\mapper\courseAndTraining\base\TrainingClassMapper.java
+E:\BOS_project\vport_management\src\main\java\cn\vport\web\controller\courseAndTraining\CourseAction.java
+E:\BOS_project\vport_management\src\main\java\cn\vport\service\courseAndTraining\CourseService.java
