@@ -25,7 +25,13 @@
         ></el-input-number>
       </el-form-item>
       <el-form-item label="最高年龄">
-        <el-input-number v-model="form.endAge" @change="handleChange" :min="50" :max="80" label="描述文字"></el-input-number>
+        <el-input-number
+          v-model="form.endAge"
+          @change="handleChange"
+          :min="50"
+          :max="80"
+          label="描述文字"
+        ></el-input-number>
       </el-form-item>
       <el-form-item label="收费标准">
         <el-input v-model="form.fee"></el-input>
@@ -36,10 +42,13 @@
       <el-form-item label="图片">
         <el-upload
           class="upload-demo"
-          action="http://www.vport.com/rest/course_save.action"
+          action="https://easy-mock.com/mock/5b7f7a284a96987699e40630/imageUpload"
           name="picUrl"
+          :multiple="isMultiple"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
+          :on-success="handleUploadSuccess"
+          :file-list="fileList"
           list-type="picture"
         >
           <el-button size="small" type="primary">点击上传</el-button>
@@ -54,32 +63,33 @@
 </template>
 
 <script>
-import qs from 'qs'
+import qs from "qs";
 export default {
   name: "CourseForm",
   props: [""],
   data() {
     return {
+      isMultiple: true,
       form: {
         courseName: "",
         level: "",
         beginAge: 0,
         endAge: 0,
         fee: "",
-        trainingPeriod: "",
-        // fileList2: [
-        //   {
-        //     name: "food.jpeg",
-        //     url:
-        //       "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
-        //   },
-        //   {
-        //     name: "food2.jpeg",
-        //     url:
-        //       "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
-        //   }
-        // ]
-      }
+        trainingPeriod: ""
+      },
+      fileList: [
+        {
+          name: "food.jpeg",
+          url:
+            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
+        },
+        {
+          name: "food2.jpeg",
+          url:
+            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
+        }
+      ]
     };
   },
   methods: {
@@ -87,13 +97,19 @@ export default {
       console.log("submit!");
       console.log(this.form);
       this.$http
-        .post("http://www.vport.com/rest/course_save.action", qs.stringify(this.form))
+        .post(
+          "http://www.vport.com/rest/course_save.action",
+          qs.stringify(this.form)
+        )
         .then(res => {
-          console.log(res)
+          console.log(res);
         })
         .catch(err => {
           console.log(err);
         });
+    },
+    handleUploadSuccess(response, file, fileList) {
+      console.log(response)
     },
     handleRemove(file, fileList) {
       console.log(file, fileList);
@@ -117,5 +133,13 @@ export default {
   watch: {}
 };
 </script>
-<style lang='' scoped>
+<style>
+.upload-demo .el-upload-list{
+  display: flex;
+  flex-wrap: nowrap;
+}
+.upload-demo .el-upload-list > li{
+  width: 23%;
+  margin-right: 10px;
+}
 </style>
