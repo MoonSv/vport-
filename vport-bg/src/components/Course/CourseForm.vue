@@ -48,7 +48,7 @@
           :on-preview="handlePreview"
           :on-remove="handleRemove"
           :on-success="handleUploadSuccess"
-          :file-list="fileList"
+          :file-list="form.fileList"
           list-type="picture"
         >
           <el-button size="small" type="primary">点击上传</el-button>
@@ -76,20 +76,20 @@ export default {
         beginAge: 0,
         endAge: 0,
         fee: "",
-        trainingPeriod: ""
-      },
-      fileList: [
-        {
-          name: "food.jpeg",
-          url:
-            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
-        },
-        {
-          name: "food2.jpeg",
-          url:
-            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
-        }
-      ]
+        trainingPeriod: "",
+        fileList: [
+          {
+            name: "food.jpeg",
+            url:
+              "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
+          },
+          {
+            name: "food2.jpeg",
+            url:
+              "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
+          }
+        ]
+      }
     };
   },
   methods: {
@@ -109,7 +109,17 @@ export default {
         });
     },
     handleUploadSuccess(response, file, fileList) {
-      console.log(response)
+      // console.log('response!')
+      // console.log(response)
+      // console.log('file')
+      // console.log(file)
+      let tmp = {
+        url: response.url,
+        name: file.name
+      };
+      this.form.fileList.push(tmp);
+      console.log("filelist");
+      console.log(this.form.fileList);
     },
     handleRemove(file, fileList) {
       console.log(file, fileList);
@@ -134,11 +144,11 @@ export default {
 };
 </script>
 <style>
-.upload-demo .el-upload-list{
+.upload-demo .el-upload-list {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 }
-.upload-demo .el-upload-list > li{
+.upload-demo .el-upload-list > li {
   width: 23%;
   margin-right: 10px;
 }
