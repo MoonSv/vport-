@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import qs from "qs";
+import qs from "qs"
 export default {
   name: "CourseForm",
   props: [""],
@@ -81,77 +81,93 @@ export default {
         fileList: [],
         fileListStr: ""
       }
-    };
+    }
   },
   methods: {
     onSubmit() {
-      console.log("submit!");
-      console.log(this.form);
+      console.log("submit!")
+      console.log(this.form)
       this.$http
         .post(
           "http://www.vport.com/rest/course_save.action",
           qs.stringify(this.form)
         )
         .then(res => {
-          console.log(res);
+          console.log(res)
         })
         .catch(err => {
-          console.log(err);
-        });
+          console.log(err)
+        })
     },
     uploadImage(param) {
       // using axios to upload image
-      let formData = new FormData();
-      formData.append("file", param.file);
+      let formData = new FormData()
+      formData.append("file", param.file)
       let config = {
         "Content-Type": "multipart/form-data"
-      };
-      let var_this = this;
+      }
+      let var_this = this
       this.$http
-        .post("http://www.vport.com/rest/fileUpload/saveFile", formData, config)
+        .post(
+          "http://www.vport.com/rest/fileUpload/saveFile",
+          formData,
+          config,
+          {
+            progress: function(event) {
+              param.file.percent = (event.loaded / event.total) * 100
+              param.onProgress(param.file)
+            }
+          }
+        )
         .then(response => {
-          console.log(response)
+          // console.log(response)
           let tmp = {
-            url: response.url,
+            url: response.data.url,
             name: param.file.name
-          };
-          this.form.fileListStr += response.url + ",";
-          this.form.fileList.push(tmp);
+          }
+          // this.form.fileListStr += response.data.url + ","
+          this.form.fileList.push(tmp)
+          this.form.fileListStr = ""
+          for (let i = 0; i < this.form.fileList.length; i++) {
+            console.log(i)
+            console.log(this.form.fileList[i])
+            this.form.fileListStr += this.form.fileList[i].url + ","
+          }
           console.log("filelist")
           console.log(this.form.fileList)
-          console.log('fileToString')
-          console.log(this.form.fileListStr)
+          console.log("num of url: ")
+          console.log(this.form.fileListStr.split(",").length)
         })
         .catch(error => {
-          console.log(error);
-        });
+          console.log(error)
+        })
     },
     handleUploadSuccess(response, file, fileList) {
-      // console.log('response!')
-      // console.log(response)
-      // console.log('file')
-      // console.log(file)
       let tmp = {
         url: response.url,
         name: file.name
-      };
-      this.form.fileListStr += response.url + ",";
-      this.form.fileList.push(tmp);
-      // console.log("filelist")
-      // console.log(this.form.fileList)
-      // console.log('fileToString')
-      // console.log(this.form.fileListStr)
-      console.log("!!!");
-      console.log(file);
+      }
+      this.form.fileListStr += response.url + ","
+      this.form.fileList.push(tmp)
+      console.log("!!!")
+      console.log(file)
     },
     handleRemove(file, fileList) {
-      console.log(file, fileList);
+      console.log("after remove: ")
+      console.log(fileList)
+      this.form.fileList = fileList
+      this.form.fileListStr = ""
+      for (let i = 0; i < fileList.length; i++) {
+        this.form.fileListStr += this.form.fileList[i].url + ","
+      }
+      console.log("num of url: ")
+      console.log(this.form.fileListStr.split(",").length)
     },
     handlePreview(file) {
-      console.log(file);
+      console.log(file)
     },
     handleChange(value) {
-      console.log(value);
+      console.log(value)
     }
   },
 
@@ -164,7 +180,7 @@ export default {
   mounted() {},
 
   watch: {}
-};
+}
 </script>
 <style>
 .upload-demo .el-upload-list {
