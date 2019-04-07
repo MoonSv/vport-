@@ -122,7 +122,7 @@ export default {
         .then(response => {
           // console.log(response)
           let tmp = {
-            url: response.data.url,
+            url: response.data,
             name: param.file.name
           }
           // this.form.fileListStr += response.data.url + ","
