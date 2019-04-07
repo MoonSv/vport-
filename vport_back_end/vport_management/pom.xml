@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>cn.vport.maven</groupId>
-		<artifactId>vport_manager_parent</artifactId>
+		<artifactId>vport_parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>vport_management</artifactId>

@@ -42,7 +42,7 @@
       <el-form-item label="图片">
         <el-upload
           class="upload-demo"
-          action="https://easy-mock.com/mock/5b7f7a284a96987699e40630/imageUpload"
+          action="http://www.vport.com/rest/fileUpload/saveFile"
           name="picUrl"
           :multiple="isMultiple"
           :on-preview="handlePreview"
@@ -78,16 +78,7 @@ export default {
         fee: "",
         trainingPeriod: "",
         fileList: [
-          {
-            name: "food.jpeg",
-            url:
-              "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
-          },
-          {
-            name: "food2.jpeg",
-            url:
-              "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
-          }
+          
         ]
       }
     };
