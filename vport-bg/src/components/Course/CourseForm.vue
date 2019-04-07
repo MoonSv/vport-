@@ -42,13 +42,14 @@
       <el-form-item label="图片">
         <el-upload
           class="upload-demo"
-          action="http://www.vport.com/rest/fileUpload/saveFile"
+          action
           name="picUrl"
           :multiple="isMultiple"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
           :on-success="handleUploadSuccess"
           :file-list="form.fileList"
+          :http-request="uploadImage"
           list-type="picture"
         >
           <el-button size="small" type="primary">点击上传</el-button>
@@ -63,7 +64,7 @@
 </template>
 
 <script>
-import qs from "qs"
+import qs from "qs";
 export default {
   name: "CourseForm",
   props: [""],
@@ -77,28 +78,53 @@ export default {
         endAge: 0,
         fee: "",
         trainingPeriod: "",
-        fileList: [
-          
-        ],
+        fileList: [],
         fileListStr: ""
       }
-    }
+    };
   },
   methods: {
     onSubmit() {
-      console.log("submit!")
-      console.log(this.form)
+      console.log("submit!");
+      console.log(this.form);
       this.$http
         .post(
           "http://www.vport.com/rest/course_save.action",
           qs.stringify(this.form)
         )
         .then(res => {
-          console.log(res)
+          console.log(res);
         })
         .catch(err => {
-          console.log(err)
+          console.log(err);
+        });
+    },
+    uploadImage(param) {
+      // using axios to upload image
+      let formData = new FormData();
+      formData.append("file", param.file);
+      let config = {
+        "Content-Type": "multipart/form-data"
+      };
+      let var_this = this;
+      this.$http
+        .post("http://www.vport.com/rest/fileUpload/saveFile", formData, config)
+        .then(response => {
+          console.log(response)
+          let tmp = {
+            url: response.url,
+            name: param.file.name
+          };
+          this.form.fileListStr += response.url + ",";
+          this.form.fileList.push(tmp);
+          console.log("filelist")
+          console.log(this.form.fileList)
+          console.log('fileToString')
+          console.log(this.form.fileListStr)
         })
+        .catch(error => {
+          console.log(error);
+        });
     },
     handleUploadSuccess(response, file, fileList) {
       // console.log('response!')
@@ -106,24 +132,26 @@ export default {
       // console.log('file')
       // console.log(file)
       let tmp = {
-        url: response,
+        url: response.url,
         name: file.name
-      }
-      this.form.fileListStr += response + ","
-      this.form.fileList.push(tmp)
-      console.log("filelist")
-      console.log(this.form.fileList)
-      console.log('fileToString')
-      console.log(this.form.fileListStr)
+      };
+      this.form.fileListStr += response.url + ",";
+      this.form.fileList.push(tmp);
+      // console.log("filelist")
+      // console.log(this.form.fileList)
+      // console.log('fileToString')
+      // console.log(this.form.fileListStr)
+      console.log("!!!");
+      console.log(file);
     },
     handleRemove(file, fileList) {
-      console.log(file, fileList)
+      console.log(file, fileList);
     },
     handlePreview(file) {
-      console.log(file)
+      console.log(file);
     },
     handleChange(value) {
-      console.log(value)
+      console.log(value);
     }
   },
 
