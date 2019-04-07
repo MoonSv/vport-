@@ -42,7 +42,7 @@
       <el-form-item label="图片">
         <el-upload
           class="upload-demo"
-          action="https://easy-mock.com/mock/5b7f7a284a96987699e40630/imageUpload"
+          action="http://www.vport.com/rest/fileUpload/saveFile"
           name="picUrl"
           :multiple="isMultiple"
           :on-preview="handlePreview"
