@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import qs from "qs";
+import qs from "qs"
 export default {
   name: "CourseForm",
   props: [""],
@@ -79,25 +79,26 @@ export default {
         trainingPeriod: "",
         fileList: [
           
-        ]
+        ],
+        fileListStr: ""
       }
-    };
+    }
   },
   methods: {
     onSubmit() {
-      console.log("submit!");
-      console.log(this.form);
+      console.log("submit!")
+      console.log(this.form)
       this.$http
         .post(
           "http://www.vport.com/rest/course_save.action",
           qs.stringify(this.form)
         )
         .then(res => {
-          console.log(res);
+          console.log(res)
         })
         .catch(err => {
-          console.log(err);
-        });
+          console.log(err)
+        })
     },
     handleUploadSuccess(response, file, fileList) {
       // console.log('response!')
@@ -105,21 +106,24 @@ export default {
       // console.log('file')
       // console.log(file)
       let tmp = {
-        url: response.url,
+        url: response,
         name: file.name
-      };
-      this.form.fileList.push(tmp);
-      console.log("filelist");
-      console.log(this.form.fileList);
+      }
+      this.form.fileListStr += response + ","
+      this.form.fileList.push(tmp)
+      console.log("filelist")
+      console.log(this.form.fileList)
+      console.log('fileToString')
+      console.log(this.form.fileListStr)
     },
     handleRemove(file, fileList) {
-      console.log(file, fileList);
+      console.log(file, fileList)
     },
     handlePreview(file) {
-      console.log(file);
+      console.log(file)
     },
     handleChange(value) {
-      console.log(value);
+      console.log(value)
     }
   },
 
