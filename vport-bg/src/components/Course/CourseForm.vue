@@ -78,7 +78,7 @@ export default {
         fee: "",
         trainingPeriod: "",
         fileList: [],
-        fileListStr: ""
+        picUrl: ""
       }
     };
   },
@@ -124,18 +124,18 @@ export default {
             url: response.data.url,
             name: param.file.name
           };
-          // this.form.fileListStr += response.data.url + ","
+          // this.form.picUrl += response.data.url + ","
           this.form.fileList.push(tmp);
-          this.form.fileListStr = "";
+          this.form.picUrl = "";
           for (let i = 0; i < this.form.fileList.length; i++) {
             console.log(i);
             console.log(this.form.fileList[i]);
-            this.form.fileListStr += this.form.fileList[i].url + ",";
+            this.form.picUrl += this.form.fileList[i].url + ",";
           }
           console.log("filelist");
           console.log(this.form.fileList);
           console.log("num of url: ");
-          console.log(this.form.fileListStr.split(",").length);
+          console.log(this.form.picUrl.split(",").length);
         })
         .catch(error => {
           console.log(error);
@@ -146,17 +146,17 @@ export default {
       console.log(fileList);
       console.log(this.form.fileList);
       this.form.fileList = fileList;
-      this.form.fileListStr = "";
+      this.form.picUrl = "";
       for (let i = 0; i < fileList.length; i++) {
-        this.form.fileListStr += this.form.fileList[i].url + ",";
+        this.form.picUrl += this.form.fileList[i].url + ",";
       }
       console.log("num of url: ");
-      console.log(this.form.fileListStr.split(",").length);
+      console.log(this.form.picUrl.split(",").length);
       // let tmp = {
       //   url: response.url,
       //   name: file.name
       // }
-      // this.form.fileListStr += response.url + ","
+      // this.form.picUrl += response.url + ","
       // this.form.fileList.push(tmp)
       // console.log("!!!")
       // console.log(file)
@@ -165,12 +165,12 @@ export default {
       console.log("after remove: ");
       console.log(fileList);
       this.form.fileList = fileList;
-      this.form.fileListStr = "";
+      this.form.picUrl = "";
       for (let i = 0; i < fileList.length; i++) {
-        this.form.fileListStr += this.form.fileList[i].url + ",";
+        this.form.picUrl += this.form.fileList[i].url + ",";
       }
       console.log("num of url: ");
-      console.log(this.form.fileListStr.split(",").length);
+      console.log(this.form.picUrl.split(",").length);
     },
     handlePreview(file) {
       console.log(file);
