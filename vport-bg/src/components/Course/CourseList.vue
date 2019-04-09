@@ -8,11 +8,7 @@
           </el-form-item>
           <el-form-item label="课程级别">
             <el-select v-model="formInline.level" placeholder="课程级别">
-              <el-option label="S" value="S"></el-option>
-              <el-option label="A" value="A"></el-option>
-              <el-option label="B" value="B"></el-option>
-              <el-option label="C" value="C"></el-option>
-              <el-option label="D" value="D"></el-option>
+              <el-option v-for="level in crsLevels" :key="level.id" :label="level.type" :value="level.id"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="最低年龄">
@@ -43,13 +39,12 @@
         </el-form>
       </div>
       <ul class="course-group">
-        <li class="course-card">
-          <p class="class-name">Course name</p>
-          <p class="trainer-name">课程级别：S</p>
-          <p class="class-date">年龄：3 - 50岁</p>
-          <p class="class-time">收费标准：</p>
-          <p class="class-time">课程周期：50</p>
-          <p class="class-time">最高年龄：50</p>
+        <li class="course-card" v-for="crs in crsList" :key="crs.id">
+          <p class="class-name">{{crs.courseName}}</p>
+          <p class="trainer-name">课程级别：{{crs.level}}</p>
+          <p class="class-date">年龄：{{crs.beginAge}} - {{crs.endAge}}岁</p>
+          <p class="class-time">收费标准：{{crs.fee}}</p>
+          <p class="class-time">最高年龄：{{crs.endAge}}</p>
           <span class="view-dtl">
             <el-dropdown trigger="click">
               <i class="el-icon-more-outline" style="font-size: 24px"></i>
@@ -83,7 +78,47 @@ export default {
         endAge: 0,
         fee: "",
         trainingPeriod: ""
-      }
+      },
+      crsLevels:[
+        {
+          "id": 1,
+          "type": "S"
+        },
+        {
+          "id": 2,
+          "type": "A"
+        },
+        {
+          "id": 3,
+          "type": "B"
+        },
+        {
+          "id": 4,
+          "type": "C"
+        },
+        {
+          "id": 5,
+          "type": "D"
+        },
+      ],
+      crsList:[
+        {
+          "beginAge": 10,
+          "courseName": "还行课程",
+          "endAge": 30,
+          "fee": 999.5,
+          "level": "B",
+          "id": 1
+        },
+        {
+          "beginAge": 10,
+          "courseName": "牛逼课程",
+          "endAge": 50,
+          "fee": 1699.5,
+          "level": "S",
+          "id": 2
+        },
+      ]
     };
   },
 
@@ -93,30 +128,45 @@ export default {
 
   beforeMount() {
     this.getCrsList()
+    this.getLevels()
   },
 
   mounted() {},
 
   methods: {
     clickNewCrs() {
-      this.$router.push({ name: "CourseForm" });
+      this.$router.push({ name: "CourseForm" })
+    },
+    getLevels(){
+      this.$http
+        .get("course/get_levels")
+        .then(res => {
+          console.log("course levels: ")
+          console.log(res.data)
+          this.crsLevels = res.data
+
+        })
+        .catch(err => {
+          console.log(res)
+        })
     },
     getCrsList() {
       this.$http
-        .get("http://127.0.0.1:8080/xxx")
+        .get("course/list")
         .then(res => {
           if (res.data) {
-            console.log(res);
+            console.log(res.data)
+            this.crsList = res.data
           }
         })
         .catch(err => {
-          console.log(err);
+          console.log(err)
         });
     },
     onSubmit() {
-      console.log("submit!");
+      console.log("submit!")
       this.$http
-      .post("http://127.0.0.1:8080/xxx", qs.stringify(this.formInline))
+      .post("course/list", qs.stringify(this.formInline))
       .then(res=>{
         if (res) {
           console.log(res)

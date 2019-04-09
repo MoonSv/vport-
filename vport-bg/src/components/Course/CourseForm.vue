@@ -8,11 +8,12 @@
       </el-form-item>
       <el-form-item label="课程级别">
         <el-select v-model="form.level" placeholder="请选择课程级别">
-          <el-option label="S" value="S"></el-option>
-          <el-option label="A" value="A"></el-option>
-          <el-option label="B" value="B"></el-option>
-          <el-option label="C" value="C"></el-option>
-          <el-option label="D" value="D"></el-option>
+          <el-option
+            v-for="level in crsLevels"
+            :key="level.id"
+            :label="level.type"
+            :value="level.id"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="最低年龄">
@@ -42,7 +43,7 @@
       <el-form-item label="图片">
         <el-upload
           class="upload-demo"
-          action="http://www.vport.com/rest/fileUpload/saveFile"
+          action="fileUpload/saveFile"
           name="picUrl"
           :multiple="isMultiple"
           :on-preview="handlePreview"
@@ -79,18 +80,49 @@ export default {
         trainingPeriod: "",
         fileList: [],
         picUrl: ""
-      }
+      },
+      crsLevels: [
+        {
+          id: 1,
+          type: "S"
+        },
+        {
+          id: 2,
+          type: "A"
+        },
+        {
+          id: 3,
+          type: "B"
+        },
+        {
+          id: 4,
+          type: "C"
+        },
+        {
+          id: 5,
+          type: "D"
+        }
+      ]
     };
   },
   methods: {
+    getLevels() {
+      this.$http
+        .get("course/get_levels")
+        .then(res => {
+          console.log("course levels: ");
+          console.log(res.data);
+          this.crsLevels = res.data;
+        })
+        .catch(err => {
+          console.log(res);
+        });
+    },
     onSubmit() {
       console.log("submit!");
       console.log(this.form);
       this.$http
-        .post(
-          "http://www.vport.com/rest/course_save.action",
-          qs.stringify(this.form)
-        )
+        .post("course/save", qs.stringify(this.form))
         .then(res => {
           console.log(res);
         })
@@ -152,14 +184,6 @@ export default {
       }
       console.log("num of url: ");
       console.log(this.form.picUrl.split(",").length);
-      // let tmp = {
-      //   url: response.url,
-      //   name: file.name
-      // }
-      // this.form.picUrl += response.url + ","
-      // this.form.fileList.push(tmp)
-      // console.log("!!!")
-      // console.log(file)
     },
     handleRemove(file, fileList) {
       console.log("after remove: ");

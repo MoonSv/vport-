@@ -8,6 +8,8 @@ import Axios from 'axios'
 import qs from 'qs'
 import 'element-ui/lib/theme-chalk/index.css';
 
+Axios.defaults.baseURL = "http://www.vport.com/rest/"
+
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 Vue.prototype.$http = Axios
