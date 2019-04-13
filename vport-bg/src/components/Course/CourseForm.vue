@@ -43,7 +43,7 @@
       <el-form-item label="图片">
         <el-upload
           class="upload-demo"
-          action="fileUpload/saveFile"
+          action="http://www.vport.com/rest/fileUpload/saveFile"
           name="picUrl"
           :multiple="isMultiple"
           :on-preview="handlePreview"
