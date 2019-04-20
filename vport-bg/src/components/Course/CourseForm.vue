@@ -20,8 +20,6 @@
         <el-input-number
           v-model="form.beginAge"
           @change="handleChange"
-          :min="3"
-          :max="30"
           label="描述文字"
         ></el-input-number>
       </el-form-item>
@@ -29,8 +27,6 @@
         <el-input-number
           v-model="form.endAge"
           @change="handleChange"
-          :min="50"
-          :max="80"
           label="描述文字"
         ></el-input-number>
       </el-form-item>
@@ -46,6 +42,12 @@
             :value="feeType.id"
           ></el-option>
         </el-select>
+      </el-form-item>
+      <el-form-item label="学生人数">
+        <el-input-number
+          v-model="form.numOfStudent"
+          @change="handleChange"
+        ></el-input-number>
       </el-form-item>
       <el-form-item label="图片">
         <el-upload
@@ -87,7 +89,8 @@ export default {
         feeType: "",
         trainingPeriod: "",
         fileList: [],
-        picUrl: ""
+        picUrl: "",
+        numOfStudent: 0
       },
       crsLevels: [
         {
