@@ -48,6 +48,9 @@
             }"
         ></el-time-select>
       </el-form-item>
+      <el-form-item label="课程周期">
+        <el-input v-model="form.trainingPeriod"></el-input>
+      </el-form-item>
       <el-form-item label="截止报名日期">
         <el-date-picker v-model="form.deadLine" type="date" placeholder="选择日期"></el-date-picker>
       </el-form-item>
@@ -71,7 +74,8 @@ export default {
         beginDate: "",
         startTime: "",
         endTime: "",
-        deadLine: ""
+        deadLine: "",
+        trainingPeriod: ""
       }
     };
   },
@@ -79,7 +83,10 @@ export default {
     onSubmit() {
       console.log("submit!");
       this.$http
-        .post("http://www.vport.com/rest/course_save.action", qs.stringify(this.form))
+        .post(
+          "http://www.vport.com/rest/course_save.action",
+          qs.stringify(this.form)
+        )
         .then(res => {
           if (res) {
             console.log(res);
@@ -94,7 +101,7 @@ export default {
     },
     handlePreview(file) {
       console.log(file);
-    },
+    }
   },
 
   components: {},

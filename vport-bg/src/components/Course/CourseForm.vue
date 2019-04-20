@@ -37,8 +37,15 @@
       <el-form-item label="收费标准">
         <el-input v-model="form.fee"></el-input>
       </el-form-item>
-      <el-form-item label="课程周期">
-        <el-input v-model="form.trainingPeriod"></el-input>
+      <el-form-item label="收费类型">
+        <el-select v-model="form.feeType" placeholder="请选择收费类型">
+          <el-option
+            v-for="feeType in feeTypes"
+            :key="feeType.id"
+            :label="feeType.levelName"
+            :value="feeType.id"
+          ></el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="图片">
         <el-upload
@@ -77,6 +84,7 @@ export default {
         beginAge: 0,
         endAge: 0,
         fee: "",
+        feeType: "",
         trainingPeriod: "",
         fileList: [],
         picUrl: ""
@@ -102,6 +110,16 @@ export default {
           id: 5,
           type: "D"
         }
+      ],
+      feeTypes: [
+        {
+          id: 1,
+          levelName: '按小时计'
+        },
+        {
+          id: 2,
+          levelName: '按次数计'
+        }
       ]
     };
   },
@@ -113,6 +131,18 @@ export default {
           console.log("course levels: ");
           console.log(res.data);
           this.crsLevels = res.data;
+        })
+        .catch(err => {
+          console.log(res);
+        });
+    },
+    getFeeTypes() {
+      this.$http
+        .get("course/get_feeTypes")
+        .then(res => {
+          console.log("fee types: ");
+          console.log(res.data);
+          this.feeTypes = res.data;
         })
         .catch(err => {
           console.log(res);
