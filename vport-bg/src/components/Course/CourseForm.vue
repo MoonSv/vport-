@@ -7,7 +7,7 @@
         <el-input v-model="form.courseName"></el-input>
       </el-form-item>
       <el-form-item label="课程级别">
-        <el-select v-model="form.level" placeholder="请选择课程级别">
+        <el-select v-model="form.levelId" placeholder="请选择课程级别">
           <el-option
             v-for="level in crsLevels"
             :key="level.id"
@@ -34,7 +34,7 @@
         <el-input v-model="form.fee"></el-input>
       </el-form-item>
       <el-form-item label="收费类型">
-        <el-select v-model="form.feeType" placeholder="请选择收费类型">
+        <el-select v-model="form.feeTypeId" placeholder="请选择收费类型">
           <el-option
             v-for="feeType in feeTypes"
             :key="feeType.id"
@@ -82,11 +82,11 @@ export default {
       isMultiple: true,
       form: {
         courseName: "",
-        level: "",
+        levelId: "",
         beginAge: 0,
         endAge: 0,
         fee: "",
-        feeType: "",
+        feeTypeId: "",
         trainingPeriod: "",
         fileList: [],
         picUrl: "",
