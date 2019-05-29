@@ -31,6 +31,9 @@
               <el-menu-item index="2-1" @click="clickClsList">
                 <i class="el-icon-search"></i>浏览班级
               </el-menu-item>
+              <el-menu-item index="2-2" @click="clickClsList">
+                <i class="el-icon-search"></i>浏览训练地点
+              </el-menu-item>              
             </el-menu-item-group>
           </el-submenu>          
           <el-submenu index="3">

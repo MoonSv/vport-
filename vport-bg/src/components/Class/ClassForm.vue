@@ -13,15 +13,32 @@
         style="display: block"
       >
         <el-form-item label="班级名称">
-          <el-input v-model="form.name"></el-input>
+          <el-input v-model="form.className"></el-input>
         </el-form-item>
         <el-form-item label="课程内容">
-          <el-select v-model="form.level" placeholder="请选择对应课程">
-            <el-option label="S" value="S"></el-option>
-            <el-option label="A" value="A"></el-option>
-            <el-option label="B" value="B"></el-option>
-            <el-option label="C" value="C"></el-option>
-            <el-option label="D" value="D"></el-option>
+          <el-select v-model="form.course" placeholder="请选择对应课程">
+            <el-option
+              v-for="item in courseList"
+              :key="item.id"
+              :label="item.courseName"
+              :value="item.id"
+            >
+              <span style="float: left">{{ item.courseName }}</span>
+              <span style="float: right; color: #8492a6; font-size: 13px">{{ item.level.levelName }}</span>
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="训练地点">
+          <el-select v-model="form.trainingPlaceId" placeholder="请选择训练地点" style="margin: 0px auto">
+            <el-option
+              v-for="item in trainingPlace"
+              :key="item.id"
+              :label="item.address"
+              :value="item.id"
+            >
+              <span style="float: left">{{ item.address }}</span>
+              <span style="float: right; color: #8492a6; font-size: 13px">{{ item.id }}</span>
+            </el-option>
           </el-select>
         </el-form-item>
         <!-- <el-form-item label="任课教练">
@@ -207,17 +224,43 @@
       </el-dialog>
       <div v-show="showTrainerChose">
         <div class="show-trainer">
-          <el-select v-model="form.trainer" placeholder="请选择教练" style="margin: 10px auto">
-            <el-option
-              v-for="item in availableTrainers"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
+          <div>
+            <p>主教练</p>
+            <el-select
+              v-model="form.activeChiefTrainer.id"
+              placeholder="请选择主教练"
+              style="margin: 10px auto"
             >
-              <span style="float: left">{{ item.label }}</span>
-              <span style="float: right; color: #8492a6; font-size: 13px">{{ item.value }}</span>
-            </el-option>
-          </el-select>
+              <el-option
+                v-for="item in availableTrainers"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+                <span style="float: left">{{ item.label }}</span>
+                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.value }}</span>
+              </el-option>
+            </el-select>
+          </div>
+          <div>
+            <p>副教练</p>
+            <el-select
+              v-model="form.assistantTrainers"
+              multiple
+              placeholder="请选择副教练（可多选）"
+              style="margin: 10px auto"
+            >
+              <el-option
+                v-for="item in availableTrainers"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+                <span style="float: left">{{ item.label }}</span>
+                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.value }}</span>
+              </el-option>
+            </el-select>
+          </div>
         </div>
         <div class="btn-group" style="margin-top: 90px;">
           <button class="dialog-button" @click="showDate">上一步</button>
@@ -249,10 +292,20 @@ export default {
           );
         }
       },
+      trainingPlace: [
+        { id: 123, address: "国家体育馆" },
+        { id: 456, address: "水立方" }
+      ],
+      courseList: [],
       form: {
-        name: "",
+        className: "",
         level: "",
-        trainer: "",
+        trainingPlaceId: "",
+        activeChiefTrainer: {
+          "id": ""
+        },
+        dayOfTraining: "",
+        assistantTrainers: [],
         // beginDate: "",
         startTime: "",
         endTime: "",
@@ -307,13 +360,13 @@ export default {
       showTrainerChose: false,
       value1: [],
       availableTime: {
-        "1": [["06:00", "12:00"], ["14:00", "16:00"], ["18:00", "22:00"]],
-        "2": [["06:00", "13:00"], ["15:00", "22:00"]],
-        "3": [["06:00", "11:00"], ["13:00", "22:00"]],
-        "4": [["06:00", "18:00"], ["20:00", "22:00"]],
-        "5": [["06:00", "22:00"]],
-        "6": [["06:00", "22:00"]],
-        "7": [["06:00", "22:00"]]
+        // "1": [["06:00", "12:00"], ["14:00", "16:00"], ["18:00", "22:00"]],
+        // "2": [["06:00", "13:00"], ["15:00", "22:00"]],
+        // "3": [["06:00", "11:00"], ["13:00", "22:00"]],
+        // "4": [["06:00", "18:00"], ["20:00", "22:00"]],
+        // "5": [["06:00", "22:00"]],
+        // "6": [["06:00", "22:00"]],
+        // "7": [["06:00", "22:00"]]
       },
       availableTrainers: [
         {
@@ -360,6 +413,7 @@ export default {
       }
       this.targetIndex = i;
       this.dayIndex = j;
+      this.form.dayOfTraining = this.dayIndex
 
       // 处理dialog时间区域
       this.dialogPickOptStart.start = item.split("-")[0];
@@ -375,6 +429,7 @@ export default {
     },
     clickDialogBtn() {
       this.centerDialogVisible = false;
+      this.form.trainingTime = this.form.startTime + "-" + this.form.endTime
     },
     showForm() {
       this.showFormChose = true;
@@ -382,6 +437,7 @@ export default {
       this.showTrainerChose = false;
     },
     showDate() {
+      this.getAvailableDate(this.form.trainingPlaceId);
       this.showFormChose = false;
       this.showDateChose = true;
       this.showTrainerChose = false;
@@ -403,9 +459,10 @@ export default {
         this.$refs[formName].validate(valid => {
           if (valid) {
             console.log("submit!");
+            console.log(this.form)
             this.$http
               .post(
-                "http://www.vport.com/rest/course_save.action",
+                "/trainingClass/saveNewClass",
                 qs.stringify(this.form)
               )
               .then(res => {
@@ -434,8 +491,63 @@ export default {
     handlePreview(file) {
       console.log(file);
     },
-    getAvailableDate() {
-      $http.get("").then(res => {});
+    getCourseList(){
+      this.$http
+        .get("/course/list")
+        .then(res => {
+          // todo, 判断返回状态
+          this.courseList = res.data;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getTrainingPlace() {
+      this.$http
+        .get("/trainingClass/getTrainingPlace")
+        .then(res => {
+          // todo, 判断返回状态
+          this.trainingPlace = res.data;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getAvailableDate(trainingPlaceId) {
+      this.$http
+        .get(
+          `/trainingClass/getAvaliableTrainingTime?trainingPlaceId=${trainingPlaceId}`
+        )
+        .then(res => {
+          // todo, 判断返回状态
+          this.availableTime = res.data;
+          // 转换显示效果
+          this.transAvailableTime1(this.availableTime);
+        })
+        .catch(err => {
+          console.log(err);
+          this.transAvailableTime1(this.availableTime);
+        });
+    },
+    // /trainingClass/getAvaliableTrainer
+    getAvaliableTrainer() {
+      this.$http
+        .get("/trainingClass/getAvaliableTrainer", {
+          params: {
+            dayAndTime: {
+              // todo
+              trainingDay: "",
+              trainingTime: ""
+            }
+          }
+        })
+        .then(res => {
+          // todo, 判断返回状态
+          this.trainingPlace = res.data;
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     transAvailableTime(TimeJson) {
       let formatJson = {};
@@ -493,7 +605,8 @@ export default {
   },
 
   beforeMount() {
-    this.transAvailableTime1(this.availableTime);
+    // this.transAvailableTime1(this.availableTime);
+    this.getTrainingPlace();
     console.log(this.availableTime);
   },
 
@@ -581,10 +694,15 @@ export default {
 }
 .show-trainer {
   margin-top: 70px;
-  display: flex;
-  flex-direction: column;
+
+  /* display: flex; */
+  /* flex-direction: column; */
   justify-content: center;
+  text-align: center;
   align-items: center;
+  font-size: 14px;
+  color: #606266;
+  line-height: 40px;
 }
 .fade-enter-active,
 .fade-leave-active {
