@@ -302,7 +302,7 @@ export default {
         level: "",
         trainingPlaceId: "",
         activeChiefTrainer: {
-          "id": ""
+          id: ""
         },
         dayOfTraining: "",
         assistantTrainers: [],
@@ -413,7 +413,7 @@ export default {
       }
       this.targetIndex = i;
       this.dayIndex = j;
-      this.form.dayOfTraining = this.dayIndex
+      this.form.dayOfTraining = this.dayIndex;
 
       // 处理dialog时间区域
       this.dialogPickOptStart.start = item.split("-")[0];
@@ -429,7 +429,7 @@ export default {
     },
     clickDialogBtn() {
       this.centerDialogVisible = false;
-      this.form.trainingTime = this.form.startTime + "-" + this.form.endTime
+      this.form.trainingTime = this.form.startTime + "-" + this.form.endTime;
     },
     showForm() {
       this.showFormChose = true;
@@ -459,15 +459,16 @@ export default {
         this.$refs[formName].validate(valid => {
           if (valid) {
             console.log("submit!");
-            console.log(this.form)
+            console.log(this.form);
             this.$http
-              .post(
-                "/trainingClass/saveNewClass",
-                qs.stringify(this.form)
-              )
+              .post("/trainingClass/saveNewClass", qs.stringify(this.form))
               .then(res => {
                 if (res) {
                   console.log(res);
+                  this.$message({
+                    message: "保存成功",
+                    type: "success"
+                  });
                 }
               })
               .catch(err => {
@@ -491,7 +492,7 @@ export default {
     handlePreview(file) {
       console.log(file);
     },
-    getCourseList(){
+    getCourseList() {
       this.$http
         .get("/course/list")
         .then(res => {
