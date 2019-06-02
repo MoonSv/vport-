@@ -305,6 +305,7 @@ export default {
           id: ""
         },
         dayOfTraining: "",
+        trainingTime: "",
         assistantTrainers: [],
         // beginDate: "",
         startTime: "",
@@ -443,6 +444,7 @@ export default {
       this.showTrainerChose = false;
     },
     showTrainer() {
+      this.getAvailableTrainer(this.form.trainingPlaceId);
       this.showFormChose = false;
       this.showDateChose = false;
       this.showTrainerChose = true;
@@ -530,15 +532,15 @@ export default {
           this.transAvailableTime1(this.availableTime);
         });
     },
-    // /trainingClass/getAvaliableTrainer
-    getAvaliableTrainer() {
+    // /trainingClass/getAvailableTrainer
+    getAvailableTrainer(trainingDay, trainingTime) {
       this.$http
         .get("/trainingClass/getAvaliableTrainer", {
           params: {
             dayAndTime: {
               // todo
-              trainingDay: "",
-              trainingTime: ""
+              trainingDay: trainingDay,
+              trainingTime: trainingTime
             }
           }
         })
@@ -608,6 +610,7 @@ export default {
   beforeMount() {
     // this.transAvailableTime1(this.availableTime);
     this.getTrainingPlace();
+    this.getCourseList();
     console.log(this.availableTime);
   },
 

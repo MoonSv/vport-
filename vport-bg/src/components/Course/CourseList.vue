@@ -30,9 +30,9 @@
           <el-form-item label="收费标准">
             <el-input v-model="formInline.fee"></el-input>
           </el-form-item>
-          <el-form-item label="课程周期">
+          <!-- <el-form-item label="课程周期">
             <el-input v-model="formInline.trainingPeriod"></el-input>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item>
             <el-button type="primary" @click="onSubmit">搜索</el-button>
           </el-form-item>
